@@ -1,5 +1,5 @@
 # Vagrant files
-Automated_provisioning/.vagrant
-Automated_provisioning/*.log
-Manual_provisioning/.vagrant
-Manual_provisioning/*.log
+vagrant/Automated_provisioning/.vagrant
+vagrant/Automated_provisioning/*.log
+vagrant/Manual_provisioning/.vagrant
+vagrant/Manual_provisioning/*.log
