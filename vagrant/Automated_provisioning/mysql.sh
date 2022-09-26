@@ -34,4 +34,5 @@ sudo systemctl enable firewalld
 sudo firewall-cmd --get-active-zones
 sudo firewall-cmd --zone=public --add-port=3306/tcp --permanent
 sudo firewall-cmd --reload
+systemctl restart firewalld
 sudo systemctl restart mariadb

@@ -32,6 +32,8 @@ Vagrant.configure("2") do |config|
     app01.vm.box = "generic/centos7"
     app01.vm.hostname = "app01"
     app01.vm.network "private_network", ip: "192.168.56.12"
+    # app01.vm.synced_folder "C:\\Users\\glhgs\\NET TANULAS\\DEVOPS\\VPROFILE\\vprofile-project\\vagrant\\Automated_provisioning", "/vagrant"
+    app01.vm.provision "file", source: "application.properties", destination: "/home/vagrant/application.properties"
     app01.vm.provision "shell", path: "tomcat.sh"  
     app01.vm.provider "virtualbox" do |vb|
      vb.memory = "1024"
@@ -41,7 +43,7 @@ Vagrant.configure("2") do |config|
   
 ### Nginx VM ###
   config.vm.define "web01" do |web01|
-    web01.vm.box = "ubuntu/xenial64"
+    web01.vm.box = "ubuntu/bionic64"
     web01.vm.hostname = "web01"
   web01.vm.network "private_network", ip: "192.168.56.11"
   web01.vm.provision "shell", path: "nginx.sh"  

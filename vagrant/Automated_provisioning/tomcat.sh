@@ -11,7 +11,7 @@ chown -R tomcat.tomcat /usr/local/tomcat8
 
 rm -rf /etc/systemd/system/tomcat.service
 
-cat <<EOT>> /etc/systemd/system/tomcat.service
+cat <<EOT >> /etc/systemd/system/tomcat.service
 [Unit]
 Description=Tomcat
 After=network.target
@@ -53,7 +53,20 @@ systemctl stop tomcat
 sleep 60
 rm -rf /usr/local/tomcat8/webapps/ROOT*
 cp target/vprofile-v2.war /usr/local/tomcat8/webapps/ROOT.war
+cp /vagrant/application.properties /usr/local/tomcat8/webapps/ROOT/WEB-INF/classes/application.properties
+sudo chown tomcat:tomcat /usr/local/tomcat8/webapps/ROOT.war
 systemctl start tomcat
 sleep 120
-cp /vagrant/application.properties /usr/local/tomcat8/webapps/ROOT/WEB-INF/classes/application.properties
+mv /home/vagrant/application.properties /usr/local/tomcat8/webapps/ROOT/WEB-INF/classes/application.properties
+sudo chown tomcat:tomcat /usr/local/tomcat8/webapps/ROOT/WEB-INF/classes/application.properties
+systemctl restart tomcat
+
+# Firewall
+systemctl start firewalld
+systemctl enable firewalld
+firewall-cmd --get-active-zones
+firewall-cmd --zone=public --add-port=8080/tcp --permanent
+firewall-cmd --reload
+systemctl restart firewalld
+sleep 50
 systemctl restart tomcat

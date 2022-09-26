@@ -15,3 +15,12 @@ sudo sh -c 'echo "[{rabbit, [{loopback_users, []}]}]." > /etc/rabbitmq/rabbitmq.
 sudo rabbitmqctl add_user test test
 sudo rabbitmqctl set_user_tags test administrator
 sudo systemctl restart rabbitmq-server
+
+# Firewall
+systemctl start firewalld
+systemctl enable firewalld
+firewall-cmd --get-active-zones
+firewall-cmd --zone=public --add-port=25672/tcp --permanent
+firewall-cmd --reload
+systemctl restart firewalld
+systemctl restart rabbitmq-server
